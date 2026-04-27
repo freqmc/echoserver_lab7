@@ -1,9 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalTime;
@@ -42,9 +39,10 @@ public class EchoServer {
 
         try (clientSocket;
              //поток чтения и буферизауии сообщения от клиента
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "CP866"));
              //поток для отправки сообщения
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+             PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "CP866"), true) )
+        {
 
             String inputLine;
             // Читаем строку от клиента. readLine() блокируется, пока не получит '\n' или EOF.
